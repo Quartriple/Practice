@@ -13,8 +13,9 @@
         android:textSize="12sp" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:id="@+id/TextView_msg"
         android:text="chat"
         android:textSize="18sp"/>
