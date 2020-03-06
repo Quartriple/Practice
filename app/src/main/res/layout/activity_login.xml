@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="1.8"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -31,19 +31,22 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/emailpassword_title_text"/>
+            android:text="@string/emailpassword_title_text"
+            android:visibility="invisible"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/status"
-            android:text="@string/signed_out" />
+            android:text="@string/signed_out"
+            android:visibility="invisible"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detail"
-            tools:text="Firebase User ID: 123456789abc" />
+            tools:text="Firebase User ID: 123456789abc"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
@@ -130,5 +133,23 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:orientation="horizontal"
+        android:paddingLeft="280dp">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextBtn"
+        android:text="next"
+        android:layout_margin="12dp"
+        android:layout_gravity="bottom"
+        android:visibility="gone"/>
+
+    </LinearLayout>
 
 </LinearLayout>

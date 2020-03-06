@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements
     private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
+    private Button nextButton;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements
         findViewById(R.id.emailCreateAccountButton).setOnClickListener(this);
         findViewById(R.id.signOutButton).setOnClickListener(this);
         findViewById(R.id.verifyEmailButton).setOnClickListener(this);
+        findViewById(R.id.nextBtn).setOnClickListener(this);
 
         // [START initialize_auth]
         // Initialize Firebase Auth
@@ -216,7 +219,7 @@ public class LoginActivity extends AppCompatActivity implements
             findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
             findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
             findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
-
+            findViewById(R.id.nextBtn).setVisibility(View.VISIBLE);
             findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
         } else {
             mStatusTextView.setText(R.string.signed_out);
@@ -225,6 +228,8 @@ public class LoginActivity extends AppCompatActivity implements
             findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
             findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
             findViewById(R.id.signedInButtons).setVisibility(View.GONE);
+
+            findViewById(R.id.nextBtn).setVisibility(View.GONE);
         }
     }
 
@@ -239,6 +244,9 @@ public class LoginActivity extends AppCompatActivity implements
             signOut();
         } else if (i == R.id.verifyEmailButton) {
             sendEmailVerification();
+        } else if (i == R.id.nextBtn){
+            Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
+            startActivity(intent);
         }
     }
     public void setProgressBar(int resId) {
