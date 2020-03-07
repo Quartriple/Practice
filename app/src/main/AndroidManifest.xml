@@ -18,19 +18,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatActivity">
-
-        </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".GoogleLoginActivity"></activity>
+        <activity
+            android:name=".ui.login.GoogleLoginActivity"
+            android:label="@string/title_activity_google_login" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".FaceActivity" />
+        <activity android:name=".LogChooseActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".NewsActivity"></activity>
-        <activity android:name=".FaceActivity">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

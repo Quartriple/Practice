@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class LoginActivity extends AppCompatActivity implements
+public class LoginActivity extends UtilActivity implements
         View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
@@ -249,33 +249,6 @@ public class LoginActivity extends AppCompatActivity implements
             startActivity(intent);
         }
     }
-    public void setProgressBar(int resId) {
-        mProgressBar = findViewById(resId);
-    }
 
-    public void showProgressBar() {
-        if (mProgressBar != null) {
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void hideProgressBar() {
-        if (mProgressBar != null) {
-            mProgressBar.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    public void hideKeyboard(View view) {
-        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        hideProgressBar();
-    }
 
 }
