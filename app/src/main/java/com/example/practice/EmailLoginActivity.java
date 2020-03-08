@@ -27,12 +27,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class LoginActivity extends UtilActivity implements
+public class EmailLoginActivity extends UtilActivity implements
         View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
-
-    public ProgressBar mProgressBar;
 
 
     private TextView mStatusTextView;
@@ -48,7 +46,7 @@ public class LoginActivity extends UtilActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_email_login);
 
         // Views
         mStatusTextView = findViewById(R.id.status);
@@ -101,7 +99,7 @@ public class LoginActivity extends UtilActivity implements
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(EmailLoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -135,7 +133,7 @@ public class LoginActivity extends UtilActivity implements
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(EmailLoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -172,12 +170,12 @@ public class LoginActivity extends UtilActivity implements
                         findViewById(R.id.verifyEmailButton).setEnabled(true);
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this,
+                            Toast.makeText(EmailLoginActivity.this,
                                     "Verification email sent to " + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e(TAG, "sendEmailVerification", task.getException());
-                            Toast.makeText(LoginActivity.this,
+                            Toast.makeText(EmailLoginActivity.this,
                                     "Failed to send verification email.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -245,7 +243,7 @@ public class LoginActivity extends UtilActivity implements
         } else if (i == R.id.verifyEmailButton) {
             sendEmailVerification();
         } else if (i == R.id.nextBtn){
-            Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
+            Intent intent = new Intent(EmailLoginActivity.this, NewsActivity.class);
             startActivity(intent);
         }
     }
