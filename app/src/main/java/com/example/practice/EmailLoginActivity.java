@@ -62,6 +62,8 @@ public class EmailLoginActivity extends UtilActivity implements
         findViewById(R.id.verifyEmailButton).setOnClickListener(this);
         findViewById(R.id.nextBtn).setOnClickListener(this);
 
+
+
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -221,7 +223,11 @@ public class EmailLoginActivity extends UtilActivity implements
             findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
         } else {
             mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
+
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+            String desc = bundle.getString("desc_id");
+            mDetailTextView.setText(desc);
 
             findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
             findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);

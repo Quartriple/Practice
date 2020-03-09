@@ -34,7 +34,7 @@ public  class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.MyViewHolde
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LoginAdapter(Class[] myDataset, View.OnClickListener onClick) {
+    public LoginAdapter(Class[] myDataset, int[] myIds, View.OnClickListener onClick) {
         mDataset = myDataset;
         onClickListener = onClick;
     }

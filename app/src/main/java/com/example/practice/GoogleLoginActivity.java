@@ -38,6 +38,7 @@ public class GoogleLoginActivity extends UtilActivity implements
     private TextView mStatusTextView;
     private TextView mDetailTextView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,9 @@ public class GoogleLoginActivity extends UtilActivity implements
         findViewById(R.id.signInButton).setOnClickListener(this);
         findViewById(R.id.signOutButton).setOnClickListener(this);
         findViewById(R.id.disconnectButton).setOnClickListener(this);
+        findViewById(R.id.nextBtn).setOnClickListener(this);
+
+
 
         // [START config_signin]
         // Configure Google Sign In
@@ -179,10 +183,14 @@ public class GoogleLoginActivity extends UtilActivity implements
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+            String desc = bundle.getString("desc_id");
+            mDetailTextView.setText(desc);
 
             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
+            findViewById(R.id.nextBtn).setVisibility(View.GONE);
         }
     }
 
@@ -195,6 +203,9 @@ public class GoogleLoginActivity extends UtilActivity implements
             signOut();
         } else if (i == R.id.disconnectButton) {
             revokeAccess();
+        } else if (i == R.id.nextBtn){
+            Intent intent = new Intent(GoogleLoginActivity.this, NewsActivity.class);
+            startActivity(intent);
         }
     }
 }

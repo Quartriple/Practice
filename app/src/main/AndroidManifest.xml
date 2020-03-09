@@ -23,6 +23,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".NewsActivity" />
         <activity android:name=".FaceActivity" />
+        <activity android:name=".FacebookLoginActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
