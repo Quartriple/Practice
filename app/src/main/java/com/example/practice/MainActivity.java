@@ -22,12 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         TextView_get = findViewById(R.id.TextView_get);
 
-        Intent intent = getIntent() ;
-        Bundle bundle =intent.getExtras();
-        String email = bundle.getString("email");
-        String password = bundle.getString("password");
 
-        TextView_get.setText(email +"/"+ password );
+
 
         Button_back = findViewById(R.id.Button_back);
         Button_back.setOnClickListener(new View.OnClickListener() {

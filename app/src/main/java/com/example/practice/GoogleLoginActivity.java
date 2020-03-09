@@ -181,6 +181,7 @@ public class GoogleLoginActivity extends UtilActivity implements
 
             findViewById(R.id.signInButton).setVisibility(View.GONE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
+            findViewById(R.id.nextBtn).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
             Intent intent = getIntent();
@@ -204,7 +205,7 @@ public class GoogleLoginActivity extends UtilActivity implements
         } else if (i == R.id.disconnectButton) {
             revokeAccess();
         } else if (i == R.id.nextBtn){
-            Intent intent = new Intent(GoogleLoginActivity.this, NewsActivity.class);
+            Intent intent = new Intent(GoogleLoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }
