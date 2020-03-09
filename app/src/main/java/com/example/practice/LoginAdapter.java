@@ -66,8 +66,8 @@ public  class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.MyViewHolde
         return mDataset == null ? 0: mDataset.length;
     }
 
-    public String getLoginClass(int position){
-        return mDataset != null ? "com.example.practice." + mDataset[position].getSimpleName() : null;
+    public Class getLoginClass(int position){
+        return mDataset != null ? mDataset[position] : null;
     }
 }
 
