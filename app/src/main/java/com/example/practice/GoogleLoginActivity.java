@@ -8,8 +8,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -196,6 +198,26 @@ public class GoogleLoginActivity extends UtilActivity implements
             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
             findViewById(R.id.nextBtn).setVisibility(View.GONE);
+        }
+    }
+
+    private void getNickname(){
+        if(mAuth.getCurrentUser() != null) {
+           String nickname = mAuth.getCurrentUser().getDisplayName();
+           Intent intent = new Intent(GoogleLoginActivity.this, ChatActivity.class);
+           intent.putExtra("nickname",nickname);
+           startActivity(intent);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.chat :
+                getNickname();
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

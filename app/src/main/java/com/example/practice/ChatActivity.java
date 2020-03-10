@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,13 +32,17 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatData> chatDataList;
     private EditText EditText_chat;
     private Button Button_send;
-    private String nick = "nick1";
+    private String nick;
     private  DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        nick = bundle.getString("nickname");
 
         Button_send = findViewById(R.id.Button_send);
         EditText_chat = findViewById(R.id.EditText_chat);
@@ -97,5 +103,8 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
 }

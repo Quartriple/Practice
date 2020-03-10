@@ -13,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class UtilActivity extends AppCompatActivity {
 
 
@@ -71,4 +73,13 @@ public class UtilActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+ /*   private void getNickname(){
+        if(mAuth.getCurrentUser() != null) {
+            String nickname = mAuth.getCurrentUser().getDisplayName();
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra("nickname",nickname);
+            startActivity(intent);
+        }
+    } */
+
 }

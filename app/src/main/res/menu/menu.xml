@@ -16,6 +16,9 @@
             <item
                 android:id="@+id/news"
                 android:title="news"/>
+            <item
+                android:id="@+id/chat"
+                android:title="chat"/>
         </menu>
     </item>
 </menu>
