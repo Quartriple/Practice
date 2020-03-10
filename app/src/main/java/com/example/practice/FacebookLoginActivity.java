@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.practice.R;
 import com.example.practice.UtilActivity;
@@ -50,6 +51,10 @@ public class FacebookLoginActivity extends UtilActivity implements
         mDetailTextView = findViewById(R.id.detail);
         setProgressBar(R.id.progressBar);
         findViewById(R.id.buttonFacebookSignout).setOnClickListener(this);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
 
 
 

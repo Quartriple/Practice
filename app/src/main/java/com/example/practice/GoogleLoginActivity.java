@@ -2,6 +2,7 @@ package com.example.practice;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -55,6 +56,9 @@ public class GoogleLoginActivity extends UtilActivity implements
         findViewById(R.id.disconnectButton).setOnClickListener(this);
         findViewById(R.id.nextBtn).setOnClickListener(this);
 
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
 
 
         // [START config_signin]
