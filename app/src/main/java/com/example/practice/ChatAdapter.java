@@ -2,6 +2,7 @@ package com.example.practice;
 
 import android.content.Context;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.List;
 public  class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
     private  List<ChatData> mDataset;
     private String mNickname;
-
+    public LinearLayout.LayoutParams lp;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -28,6 +29,7 @@ public  class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>
         public TextView TextView_nickname;
         public TextView TextView_msg;
         public View rootView;
+
 
 
         public MyViewHolder(View v) {
@@ -66,10 +68,15 @@ public  class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>
 
         if(chat.getNickname().equals(this.mNickname)){
             holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.gravity = Gravity.START;
+            holder.TextView_msg.setLayoutParams(lp);
+
         } else{
             holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.gravity = Gravity.END;
+            holder.TextView_msg.setLayoutParams(lp);
         }
         holder.TextView_msg.setText(chat.getMsg());
         holder.TextView_nickname.setText(chat.getNickname());

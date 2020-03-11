@@ -33,6 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     private EditText EditText_chat;
     private Button Button_send;
     private String nick;
+    private String nickOther;
     private  DatabaseReference myRef;
 
     @Override

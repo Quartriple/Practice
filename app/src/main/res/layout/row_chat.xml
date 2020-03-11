@@ -20,4 +20,5 @@
         android:text="chat"
         android:textSize="18sp"/>
 
+
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.practice;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -62,7 +64,9 @@ public class EmailLoginActivity extends UtilActivity implements
         findViewById(R.id.verifyEmailButton).setOnClickListener(this);
         findViewById(R.id.nextBtn).setOnClickListener(this);
 
-
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
 
         // [START initialize_auth]
         // Initialize Firebase Auth
@@ -234,6 +238,25 @@ public class EmailLoginActivity extends UtilActivity implements
             findViewById(R.id.signedInButtons).setVisibility(View.GONE);
 
             findViewById(R.id.nextBtn).setVisibility(View.GONE);
+        }
+    }
+    private void getNickname(){
+        if(mAuth.getCurrentUser() != null) {
+            String nickname = mAuth.getCurrentUser().getEmail();
+            Intent intent = new Intent(EmailLoginActivity.this, ChatActivity.class);
+            intent.putExtra("nickname",nickname);
+            startActivity(intent);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.chat :
+                getNickname();
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
