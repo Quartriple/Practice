@@ -243,7 +243,7 @@ public class EmailLoginActivity extends UtilActivity implements
     private void getNickname(){
         if(mAuth.getCurrentUser() != null) {
             String nickname = mAuth.getCurrentUser().getEmail();
-            Intent intent = new Intent(EmailLoginActivity.this, ChatActivity.class);
+            Intent intent = new Intent(EmailLoginActivity.this, ChatListActivity.class);
             intent.putExtra("nickname",nickname);
             startActivity(intent);
         }

@@ -65,7 +65,6 @@ public  class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>
         ChatData chat = mDataset.get(position);
 
 
-
         if(chat.getNickname().equals(this.mNickname)){
             holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

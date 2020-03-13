@@ -201,25 +201,7 @@ public class GoogleLoginActivity extends UtilActivity implements
         }
     }
 
-    private void getNickname(){
-        if(mAuth.getCurrentUser() != null) {
-           String nickname = mAuth.getCurrentUser().getDisplayName();
-           Intent intent = new Intent(GoogleLoginActivity.this, ChatActivity.class);
-           intent.putExtra("nickname",nickname);
-           startActivity(intent);
-        }
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.chat :
-                getNickname();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
 
     @Override
     public void onClick(View v) {

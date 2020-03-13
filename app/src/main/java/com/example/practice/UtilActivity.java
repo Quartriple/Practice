@@ -70,6 +70,9 @@ public class UtilActivity extends AppCompatActivity {
             case R.id.news :
                 Intent intent = new Intent(this, NewsActivity.class);
                 startActivity(intent);
+            case R.id.chat:
+                Intent chat_intent = new Intent(this, ChatListActivity.class);
+                startActivity(chat_intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
