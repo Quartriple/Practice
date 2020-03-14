@@ -3,6 +3,7 @@ package com.example.practice;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,8 +34,9 @@ public class ChatActivity extends UtilActivity {
     private EditText EditText_chat;
     private Button Button_send;
     private String nick;
-    private  DatabaseReference myRef;
-    private String CHAT_NAME;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private  DatabaseReference myRef = database.getReference();
+    private String CHAT_NAME ;
     private String USER_NAME;
     private FirebaseAuth mAuth;
 
@@ -43,10 +45,11 @@ public class ChatActivity extends UtilActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+
+
         mAuth = FirebaseAuth.getInstance();
 
-
-             nick = mAuth.getCurrentUser().getEmail();
+        nick = mAuth.getCurrentUser().getEmail();
 
         Intent intent1 = getIntent();
         CHAT_NAME = intent1.getStringExtra("user_chat");
@@ -56,6 +59,10 @@ public class ChatActivity extends UtilActivity {
 
         Button_send = findViewById(R.id.Button_send);
         EditText_chat = findViewById(R.id.EditText_chat);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(CHAT_NAME);
+        setSupportActionBar(toolbar);
 
         Button_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,11 +92,11 @@ public class ChatActivity extends UtilActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        openChat(CHAT_NAME);
+        openChat();
     }
-    public void openChat(String chatName){
+    public void openChat(){
 
-        myRef.child("chat").child(chatName).addChildEventListener(new ChildEventListener() {
+        myRef.child("chat").child(CHAT_NAME).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 ChatData chat = dataSnapshot.getValue(ChatData.class);

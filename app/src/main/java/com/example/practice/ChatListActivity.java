@@ -38,7 +38,7 @@ public class ChatListActivity extends AppCompatActivity {
     private List<ChatListData> mDataset;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = firebaseDatabase.getReference();
+    private DatabaseReference myRef = firebaseDatabase.getReference("chat");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,38 +66,44 @@ public class ChatListActivity extends AppCompatActivity {
                 chatList.setChatName(user_chat.getText().toString());
                 chatList.setUserName(user_edit.getText().toString());
 
+
                 Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
                 intent.putExtra("user_chat", user_chat.getText().toString());
                 intent.putExtra("user_edit", user_edit.getText().toString());
                 startActivity(intent);
+
             }
         });
-        showChatList();
-
-    }
-
-    public void showChatList(){
 
         mDataset = new ArrayList<>();
-        mAdapter = new ChatListAdapter(mDataset,  new View.OnClickListener(){
+        mAdapter = new ChatListAdapter(mDataset,  new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if(v.getTag() != null){
-                    int postion = (int)v.getTag();
-                    Intent intent = new Intent(ChatListActivity.this,ChatActivity.class);
-                    intent.putExtra("user_chat", ((ChatListAdapter)mAdapter).getChatList(postion).getChatName());
-                    intent.putExtra("user_edit", ((ChatListAdapter)mAdapter).getChatList(postion).getUserName());
-                    startActivity(intent);
+            public void onClick(View v) {
+                if (v.getTag() != null) {
+                    if (((ChatListAdapter) mAdapter).getChatList((int) v.getTag()).getChatName() != null &&
+                            ((ChatListAdapter) mAdapter).getChatList((int) v.getTag()).getUserName() != null) {
+                        int postion = (int) v.getTag();
+                        Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
+                        intent.putExtra("user_chat", ((ChatListAdapter) mAdapter).getChatList(postion).getChatName());
+                        intent.putExtra("user_edit", ((ChatListAdapter) mAdapter).getChatList(postion).getUserName());
+                        startActivity(intent);
+                    }
                 }
             }
         });
         recyclerView.setAdapter(mAdapter);
+        addChatList();
 
-        myRef.child("chat").addChildEventListener(new ChildEventListener() {
+    }
+
+    public void addChatList(){
+
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 ChatListData chatList = dataSnapshot.getValue(ChatListData.class);
                 ((ChatListAdapter)mAdapter).addChatList(chatList);
+
             }
 
             @Override
@@ -120,6 +126,8 @@ public class ChatListActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.practice;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +34,8 @@ public  class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyVie
             TextView_chat_room = v.findViewById(R.id.TextView_chat_room);
             TextView_msg = v.findViewById(R.id.latest_msg);
             rootView = v;
-            v.setEnabled(true);
             v.setClickable(true);
+            v.setEnabled(true);
             v.setOnClickListener(onClickListener);
         }
     }
@@ -63,9 +64,10 @@ public  class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyVie
         // - replace the contents of the view with that element
         ChatListData chatList = mDataset.get(position);
 
-        holder.rootView.setTag(position);
         holder.TextView_chat_room.setText(chatList.getChatName());
         holder.TextView_msg.setText(chatList.getUserName());
+        holder.rootView.setTag(position);
+
 
     }
     // Return the size of your dataset (invoked by the layout manager)
@@ -75,7 +77,7 @@ public  class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyVie
     }
     public void addChatList(ChatListData chatList){
         mDataset.add(chatList);
-        notifyItemInserted(mDataset.size() + 1);
+        notifyItemInserted(mDataset.size() - 1);
     }
 
     public ChatListData getChatList(int position) {
