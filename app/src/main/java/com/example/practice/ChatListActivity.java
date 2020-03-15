@@ -55,7 +55,7 @@ public class ChatListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-
+        addChatList();
         user_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +66,8 @@ public class ChatListActivity extends AppCompatActivity {
                 chatList.setChatName(user_chat.getText().toString());
                 chatList.setUserName(user_edit.getText().toString());
 
+               myRef.push().setValue(chatList);
+
 
                 Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
                 intent.putExtra("user_chat", user_chat.getText().toString());
@@ -75,28 +77,27 @@ public class ChatListActivity extends AppCompatActivity {
             }
         });
 
-        mDataset = new ArrayList<>();
-        mAdapter = new ChatListAdapter(mDataset,  new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getTag() != null) {
-                    if (((ChatListAdapter) mAdapter).getChatList((int) v.getTag()).getChatName() != null &&
-                            ((ChatListAdapter) mAdapter).getChatList((int) v.getTag()).getUserName() != null) {
-                        int postion = (int) v.getTag();
-                        Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
-                        intent.putExtra("user_chat", ((ChatListAdapter) mAdapter).getChatList(postion).getChatName());
-                        intent.putExtra("user_edit", ((ChatListAdapter) mAdapter).getChatList(postion).getUserName());
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
-        recyclerView.setAdapter(mAdapter);
-        addChatList();
 
     }
 
     public void addChatList(){
+
+        mDataset = new ArrayList<>();
+        mAdapter = new ChatListAdapter(mDataset,  new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (v.getTag() != null) {
+                    int postion = (int) v.getTag();
+                    Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
+                    intent.putExtra("user_chat", ((ChatListAdapter) mAdapter).getChatList(postion).getChatName());
+                    intent.putExtra("user_edit", ((ChatListAdapter) mAdapter).getChatList(postion).getUserName());
+                    startActivity(intent);
+                }
+            }
+        });
+
+        recyclerView.setAdapter(mAdapter);
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override

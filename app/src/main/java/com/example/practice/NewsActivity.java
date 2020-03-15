@@ -28,7 +28,6 @@ public class NewsActivity extends Activity {
         private RecyclerView recyclerView;
         private RecyclerView.Adapter mAdapter;
         private RecyclerView.LayoutManager layoutManager;
-        private String[] mDataset = {"Kichan" , "Yujin"};
         RequestQueue queue;
 
         @Override

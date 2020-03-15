@@ -51,9 +51,9 @@ public class ChatActivity extends UtilActivity {
 
         nick = mAuth.getCurrentUser().getEmail();
 
-        Intent intent1 = getIntent();
-        CHAT_NAME = intent1.getStringExtra("user_chat");
-        USER_NAME = intent1.getStringExtra("user_edit");
+        Intent intent = getIntent();
+        CHAT_NAME = intent.getStringExtra("user_chat");
+        USER_NAME = intent.getStringExtra("user_edit");
 
 
 

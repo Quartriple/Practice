@@ -62,22 +62,27 @@ public  class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyVie
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        ChatListData chatList = mDataset.get(position);
+        if (position % 2 != 0) {
+            ChatListData chatList = mDataset.get(position);
 
-        holder.TextView_chat_room.setText(chatList.getChatName());
-        holder.TextView_msg.setText(chatList.getUserName());
-        holder.rootView.setTag(position);
+            holder.TextView_chat_room.setText(chatList.getChatName());
+            holder.TextView_msg.setText(chatList.getUserName());
+            holder.rootView.setTag(position);
+        } else {
+            holder.rootView.setVisibility(View.GONE);
 
-
+        }
     }
+
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mDataset == null ? 0: mDataset.size();
     }
+
     public void addChatList(ChatListData chatList){
         mDataset.add(chatList);
-        notifyItemInserted(mDataset.size() - 1);
+        notifyItemInserted(mDataset.size() + 1);
     }
 
     public ChatListData getChatList(int position) {
