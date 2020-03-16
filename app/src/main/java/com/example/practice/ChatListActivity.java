@@ -31,7 +31,7 @@ public class ChatListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
 
     private EditText user_chat, user_edit;
     private Button user_next;
@@ -52,10 +52,11 @@ public class ChatListActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
 
-        addChatList();
         user_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,21 +67,14 @@ public class ChatListActivity extends AppCompatActivity {
                 chatList.setChatName(user_chat.getText().toString());
                 chatList.setUserName(user_edit.getText().toString());
 
-               myRef.push().setValue(chatList);
-
-
                 Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
-                intent.putExtra("user_chat", user_chat.getText().toString());
-                intent.putExtra("user_edit", user_edit.getText().toString());
+                intent.putExtra("user_chat", chatList.getChatName());
+                intent.putExtra("user_edit", chatList.getUserName());
                 startActivity(intent);
 
             }
         });
 
-
-    }
-
-    public void addChatList(){
 
         mDataset = new ArrayList<>();
         mAdapter = new ChatListAdapter(mDataset,  new View.OnClickListener() {
@@ -98,13 +92,16 @@ public class ChatListActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(mAdapter);
+        showChatList();
+
+    }
+    public void showChatList(){
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 ChatListData chatList = dataSnapshot.getValue(ChatListData.class);
                 ((ChatListAdapter)mAdapter).addChatList(chatList);
-
             }
 
             @Override
