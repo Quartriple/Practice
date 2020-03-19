@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends Activity {
+public class NewsActivity extends UtilActivity {
         private RecyclerView recyclerView;
         private RecyclerView.Adapter mAdapter;
         private RecyclerView.LayoutManager layoutManager;
@@ -54,7 +54,7 @@ public class NewsActivity extends Activity {
         public void getNews(){
             // Instantiate the RequestQueue.
 
-            String url = "http://newsapi.org/v2/top-headlines?country=us&apiKey=e7efa750d31945a9b79d492256555457";
+            String url = "https://newsapi.org/v2/top-headlines?country=kr&category=technology&apiKey=e7efa750d31945a9b79d492256555457";
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -90,6 +90,7 @@ public class NewsActivity extends Activity {
                                                 int position = (int)v.getTag();
                                                 ((MyAdapter)mAdapter).getNews(position);
 
+
                                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(((MyAdapter)mAdapter).getNews(position).getUrl()));
                                                 startActivity(intent);
                                             }
@@ -106,7 +107,7 @@ public class NewsActivity extends Activity {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    Log.d("kichan", String.valueOf(error));
                 }
             });
 

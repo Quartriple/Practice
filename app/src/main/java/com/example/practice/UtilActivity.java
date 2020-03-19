@@ -1,5 +1,6 @@
 package com.example.practice;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
@@ -68,15 +69,19 @@ public class UtilActivity extends AppCompatActivity {
 
                 return true;
             case R.id.news :
-                Intent intent = new Intent(this, NewsActivity.class);
-                startActivity(intent);
+               Intent intent = new Intent(this, NewsActivity.class);
+               startActivity(intent);
+
+               return true;
+
             case R.id.chat:
                 Intent chat_intent = new Intent(this, ChatListActivity.class);
                 startActivity(chat_intent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
+    } }
  /*   private void getNickname(){
         if(mAuth.getCurrentUser() != null) {
             String nickname = mAuth.getCurrentUser().getDisplayName();

@@ -248,17 +248,7 @@ public class EmailLoginActivity extends UtilActivity implements
             startActivity(intent);
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.chat :
-                getNickname();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
 
     @Override
     public void onClick(View v) {

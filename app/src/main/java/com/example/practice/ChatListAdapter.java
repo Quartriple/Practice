@@ -79,7 +79,7 @@ public  class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyVie
 
     public void addChatList(ChatListData chatList){
         mDataset.add(chatList);
-        notifyItemInserted(mDataset.size() + 1);
+        notifyItemInserted(mDataset.size() - 1);
     }
 
     public ChatListData getChatList(int position) {

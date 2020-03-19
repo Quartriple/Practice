@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ public class ChatActivity extends UtilActivity {
     private String nick;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private  DatabaseReference myRef = database.getReference();
-    private String CHAT_NAME ;
+    private String CHAT_NAME;
     private String USER_NAME;
     private FirebaseAuth mAuth;
 
@@ -45,16 +46,19 @@ public class ChatActivity extends UtilActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        Intent intent = getIntent();
+
+        CHAT_NAME = intent.getStringExtra("user_chat");
+        USER_NAME = intent.getStringExtra("user_edit");
+
+
 
 
         mAuth = FirebaseAuth.getInstance();
 
         nick = mAuth.getCurrentUser().getEmail();
 
-        Intent intent = getIntent();
 
-        CHAT_NAME = intent.getStringExtra("user_chat");
-        USER_NAME = intent.getStringExtra("user_edit");
 
 
 
@@ -96,6 +100,7 @@ public class ChatActivity extends UtilActivity {
         openChat();
     }
     public void openChat(){
+
 
         myRef.child("chat").child(CHAT_NAME).addChildEventListener(new ChildEventListener() {
             @Override
