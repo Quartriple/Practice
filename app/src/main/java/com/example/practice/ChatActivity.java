@@ -36,7 +36,7 @@ public class ChatActivity extends UtilActivity {
     private Button Button_send;
     private String nick;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private  DatabaseReference myRef = database.getReference();
+    private DatabaseReference myRef = database.getReference();
     private String CHAT_NAME;
     private String USER_NAME;
     private FirebaseAuth mAuth;
@@ -57,7 +57,6 @@ public class ChatActivity extends UtilActivity {
         mAuth = FirebaseAuth.getInstance();
 
         nick = mAuth.getCurrentUser().getEmail();
-
 
 
 
@@ -94,8 +93,6 @@ public class ChatActivity extends UtilActivity {
         recyclerView.setAdapter(mAdapter);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
 
         openChat();
     }
