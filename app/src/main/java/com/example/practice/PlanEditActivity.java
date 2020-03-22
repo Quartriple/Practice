@@ -2,6 +2,7 @@ package com.example.practice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.ref.Reference;
 
 public class PlanEditActivity extends AppCompatActivity {
 
@@ -23,6 +29,9 @@ public class PlanEditActivity extends AppCompatActivity {
     private String bodyVal;
     private Integer termVal;
     private Button planSubmit;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,10 @@ public class PlanEditActivity extends AppCompatActivity {
         planMember = findViewById(R.id.plan_member);
         planTerm = findViewById(R.id.plan_term);
         planBody = findViewById(R.id.plan_body);
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        mRef = mDatabase.getReference("plan");
 
         planSubmit = findViewById(R.id.plan_submit);
         planSubmit.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +67,8 @@ public class PlanEditActivity extends AppCompatActivity {
                     plan.setMember(memVal);
                     plan.setTerm(termVal);
                     plan.setBody(bodyVal);
-                    Intent intent = new Intent(PlanEditActivity.this, NewsActivity.class);
+                    mRef.push().setValue(plan);
+                    Intent intent = new Intent(PlanEditActivity.this, PlanListActivity.class);
                     startActivity(intent);
                 }
             }
