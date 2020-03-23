@@ -73,4 +73,8 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.MyView
         notifyItemInserted(mDataset.size() -1);
     }
 
+    public PlanData getPlan(int positon){
+        return mDataset != null ? mDataset.get(positon) : null ;
+    }
+
 }

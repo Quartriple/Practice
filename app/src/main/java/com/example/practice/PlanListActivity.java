@@ -65,7 +65,14 @@ public class PlanListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(v.getTag() != null){
                     int position = (int)v.getTag();
-
+                    PlanData plan = ((PlanListAdapter)mAdapter).getPlan(position);
+                    Intent   intent = new Intent(PlanListActivity.this, PlanActivity.class);
+                    intent.putExtra("plan_title", plan.getTitle());
+                    intent.putExtra("plan_author", plan.getAuthor());
+                    intent.putExtra("plan_member", plan.getMember());
+                    intent.putExtra("plan_body", plan.getBody());
+                    intent.putExtra("plan_term", plan.getTerm().toString());
+                    startActivity(intent);
                 }
             }
         });
