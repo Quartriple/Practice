@@ -19,6 +19,8 @@
             <item
                 android:id="@+id/chat"
                 android:title="chat"/>
+            <item android:id="@+id/plan"
+                android:title="plan"/>
         </menu>
     </item>
 </menu>

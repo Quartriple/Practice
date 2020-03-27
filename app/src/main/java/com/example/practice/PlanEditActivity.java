@@ -1,6 +1,7 @@
 package com.example.practice;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.ref.Reference;
 
-public class PlanEditActivity extends AppCompatActivity {
+public class PlanEditActivity extends UtilActivity {
 
     private TextInputEditText planTitle;
     private TextInputEditText planAuthor;
@@ -29,9 +30,11 @@ public class PlanEditActivity extends AppCompatActivity {
     private String bodyVal;
     private Integer termVal;
     private Button planSubmit;
+    private Button planFile;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,23 @@ public class PlanEditActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference("plan");
+
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
+
+
+
+        planFile = findViewById(R.id.plan_file);
+        planFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                startActivityForResult(intent,10);
+            }
+        });
 
         planSubmit = findViewById(R.id.plan_submit);
         planSubmit.setOnClickListener(new View.OnClickListener() {

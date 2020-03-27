@@ -14,12 +14,25 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UtilActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mRef = mDatabase.getReference("Users");
 
     public ProgressBar mProgressBar;
+
+    public void addUser(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        Class fuser = user.getClass();
+        mRef.push().setValue(fuser);
+    }
 
     public void setProgressBar(int resId) {
         mProgressBar = findViewById(resId);
@@ -79,6 +92,10 @@ public class UtilActivity extends AppCompatActivity {
                 startActivity(chat_intent);
                 return true;
 
+            case R.id.plan :
+                Intent plan_intent = new Intent(this, PlanListActivity.class);
+                startActivity(plan_intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
     } }

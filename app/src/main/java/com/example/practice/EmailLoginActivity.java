@@ -102,6 +102,7 @@ public class EmailLoginActivity extends UtilActivity implements
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -225,6 +226,7 @@ public class EmailLoginActivity extends UtilActivity implements
             findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
             findViewById(R.id.nextBtn).setVisibility(View.VISIBLE);
             findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
+
         } else {
             mStatusTextView.setText(R.string.signed_out);
 
@@ -240,15 +242,6 @@ public class EmailLoginActivity extends UtilActivity implements
             findViewById(R.id.nextBtn).setVisibility(View.GONE);
         }
     }
-    private void getNickname(){
-        if(mAuth.getCurrentUser() != null) {
-            String nickname = mAuth.getCurrentUser().getEmail();
-            Intent intent = new Intent(EmailLoginActivity.this, ChatListActivity.class);
-            intent.putExtra("nickname",nickname);
-            startActivity(intent);
-        }
-    }
-
 
     @Override
     public void onClick(View v) {
