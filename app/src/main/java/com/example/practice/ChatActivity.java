@@ -4,11 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -94,6 +101,7 @@ public class ChatActivity extends UtilActivity {
 
         // Write a message to the database
 
+        createNotificationChannel();
         openChat();
     }
     public void openChat(){
@@ -104,7 +112,30 @@ public class ChatActivity extends UtilActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 ChatData chat = dataSnapshot.getValue(ChatData.class);
                 ((ChatAdapter)mAdapter).addChat(chat);
+
+                if(!chat.getNickname().equals(nick)) {
+                    Intent intent = new Intent(ChatActivity.this,  ChatListActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(ChatActivity.this, 0, intent, 0);
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(ChatActivity.this, "888")
+                            .setStyle(new NotificationCompat.MessagingStyle("Me"))
+                            .setSmallIcon(R.drawable.midas)
+                            .setContentTitle(chat.getNickname())
+                            .setContentText(chat.getMsg())
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(chat.getMsg()))
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setContentIntent(pendingIntent);
+
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatActivity.this);
+
+                    // notificationId is a unique int for each notification that you must define
+                    notificationManager.notify(888, builder.build());
+                }
+
             }
+
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -127,5 +158,19 @@ public class ChatActivity extends UtilActivity {
             }
         });
     }
-
+    private void createNotificationChannel(){
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.project_id);
+            String description = getString(R.string.desc_firebase_ui);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("888", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 }

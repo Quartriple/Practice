@@ -112,6 +112,7 @@ public class ChatListActivity extends UtilActivity {
 
                 ChatListData chatList = dataSnapshot.getValue(ChatListData.class);
                 ((ChatListAdapter)mAdapter).addChatList(chatList);
+
             }
 
             @Override
