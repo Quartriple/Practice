@@ -1,8 +1,12 @@
 package com.example.practice;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -99,6 +105,42 @@ public class UtilActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
     } }
+    public void createNotificationChannel(){
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.project_id);
+            String description = getString(R.string.desc_firebase_ui);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("888", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    public void setNotificationBuidler(String nickname, String msg, String chatName){
+
+        Intent intent = new Intent(this,  ChatActivity.class);
+        intent.putExtra("user_chat", chatName);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "888")
+                .setSmallIcon(R.drawable.midas)
+                .setContentTitle(nickname)
+                .setContentText(msg)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(msg))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(888, builder.build());
+    }
  /*   private void getNickname(){
         if(mAuth.getCurrentUser() != null) {
             String nickname = mAuth.getCurrentUser().getDisplayName();

@@ -56,16 +56,9 @@ public class ChatActivity extends UtilActivity {
         Intent intent = getIntent();
 
         CHAT_NAME = intent.getStringExtra("user_chat");
-        USER_NAME = intent.getStringExtra("user_edit");
-
-
-
 
         mAuth = FirebaseAuth.getInstance();
-
         nick = mAuth.getCurrentUser().getEmail();
-
-
 
 
         Button_send = findViewById(R.id.Button_send);
@@ -101,41 +94,21 @@ public class ChatActivity extends UtilActivity {
 
         // Write a message to the database
 
-        createNotificationChannel();
         openChat();
     }
     public void openChat(){
-
 
         myRef.child("chat").child(CHAT_NAME).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 ChatData chat = dataSnapshot.getValue(ChatData.class);
                 ((ChatAdapter)mAdapter).addChat(chat);
-
+                String chatname  = CHAT_NAME;
                 if(!chat.getNickname().equals(nick)) {
-                    Intent intent = new Intent(ChatActivity.this,  ChatListActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(ChatActivity.this, 0, intent, 0);
-
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(ChatActivity.this, "888")
-                            .setStyle(new NotificationCompat.MessagingStyle("Me"))
-                            .setSmallIcon(R.drawable.midas)
-                            .setContentTitle(chat.getNickname())
-                            .setContentText(chat.getMsg())
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(chat.getMsg()))
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setContentIntent(pendingIntent);
-
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatActivity.this);
-
-                    // notificationId is a unique int for each notification that you must define
-                    notificationManager.notify(888, builder.build());
+                    setNotificationBuidler(chat.getNickname(), chat.getMsg(), chatname);
                 }
 
             }
-
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -158,19 +131,5 @@ public class ChatActivity extends UtilActivity {
             }
         });
     }
-    private void createNotificationChannel(){
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.project_id);
-            String description = getString(R.string.desc_firebase_ui);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("888", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+
 }
