@@ -1,38 +1,9 @@
 package com.example.practice;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+public class EmailLoginActivity extends UtilActivity{ /*implements
+        View.OnClickListener {*/
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-
-public class EmailLoginActivity extends UtilActivity implements
-        View.OnClickListener {
-
-    private static final String TAG = "EmailPassword";
+/*    private static final String TAG = "EmailPassword";
 
 
     private TextView mStatusTextView;
@@ -50,7 +21,7 @@ public class EmailLoginActivity extends UtilActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_login);
 
-        // Views
+          // Views
         mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
         mEmailField = findViewById(R.id.fieldEmail);
@@ -258,7 +229,7 @@ public class EmailLoginActivity extends UtilActivity implements
             Intent intent = new Intent(EmailLoginActivity.this, NewsActivity.class);
             startActivity(intent);
         }
-    }
+    }*/
 
 
 }

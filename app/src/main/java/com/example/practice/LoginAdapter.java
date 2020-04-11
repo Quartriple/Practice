@@ -1,20 +1,17 @@
 package com.example.practice;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 
 public  class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.MyViewHolder> {
     private  Class[] mDataset;
+    private int[] loigDesc;
     private static View.OnClickListener onClickListener;
 
     // Provide a reference to the views for each data item
@@ -37,6 +34,8 @@ public  class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.MyViewHolde
     public LoginAdapter(Class[] myDataset, int[] myIds, View.OnClickListener onClick) {
         mDataset = myDataset;
         onClickListener = onClick;
+        loigDesc = myIds;
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -66,8 +65,11 @@ public  class LoginAdapter extends RecyclerView.Adapter<LoginAdapter.MyViewHolde
         return mDataset == null ? 0: mDataset.length;
     }
 
-    public Class getLoginClass(int position){
-        return mDataset != null ? mDataset[position] : null;
+    public String getLoginClassName(int position){
+        return mDataset != null ? mDataset[position].getName() : null;
+    }
+    public  int getDesc(int position){
+        return loigDesc != null ? loigDesc[position] : null ;
     }
 }
 
